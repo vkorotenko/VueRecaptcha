@@ -70,8 +70,8 @@ export default class HelloWorld extends Vue {
   createRecaptcha() {
     var s = document.createElement("script");
     s.setAttribute("src", "https://www.google.com/recaptcha/api.js");
-    s.setAttribute("async", "async");
-    s.setAttribute("defer", "defer");
+    s.async = true;
+    s.defer = true;
     document.body.appendChild(s);
   }
 }
