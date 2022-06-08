@@ -1,32 +1,32 @@
-# Создание приложения NET 6 + VUE с защитой reCaptcha
-## Введение
+# РЎРѕР·РґР°РЅРёРµ РїСЂРёР»РѕР¶РµРЅРёСЏ NET 6 + VUE СЃ Р·Р°С‰РёС‚РѕР№ reCaptcha
+## Р’РІРµРґРµРЅРёРµ
 
-Данный шаблон поможет вам добавить защиту формы с помощью 
-Google reCaptcha в ваше SPA приложение. 
-Кроме того, используется прокси пакет для одновременного запуска SPA и .NET приложений.
-Данная статья основана на статье [Adding CAPTCHA on form posts with ASP.NET Core](https://blog.elmah.io/adding-captcha-on-form-posts-with-asp-net-core/)
-Если вам нужна защита на Razor pages то используйте ее.
+Р”Р°РЅРЅС‹Р№ С€Р°Р±Р»РѕРЅ РїРѕРјРѕР¶РµС‚ РІР°Рј РґРѕР±Р°РІРёС‚СЊ Р·Р°С‰РёС‚Сѓ С„РѕСЂРјС‹ СЃ РїРѕРјРѕС‰СЊСЋ 
+Google reCaptcha РІ РІР°С€Рµ SPA РїСЂРёР»РѕР¶РµРЅРёРµ. 
+РљСЂРѕРјРµ С‚РѕРіРѕ, РёСЃРїРѕР»СЊР·СѓРµС‚СЃСЏ РїСЂРѕРєСЃРё РїР°РєРµС‚ РґР»СЏ РѕРґРЅРѕРІСЂРµРјРµРЅРЅРѕРіРѕ Р·Р°РїСѓСЃРєР° SPA Рё .NET РїСЂРёР»РѕР¶РµРЅРёР№.
+Р”Р°РЅРЅР°СЏ СЃС‚Р°С‚СЊСЏ РѕСЃРЅРѕРІР°РЅР° РЅР° СЃС‚Р°С‚СЊРµ [Adding CAPTCHA on form posts with ASP.NET Core](https://blog.elmah.io/adding-captcha-on-form-posts-with-asp-net-core/)
+Р•СЃР»Рё РІР°Рј РЅСѓР¶РЅР° Р·Р°С‰РёС‚Р° РЅР° Razor pages С‚Рѕ РёСЃРїРѕР»СЊР·СѓР№С‚Рµ РµРµ.
 
-## Создание .NET приложения
-Я использую **Microsoft Visual Studio 2022** в случае использования других версий экраны и код будут немного отличатся.
-Создайте проект **ASP .NET Core Web API**
-![Создайте проект ASP .NET Core Web API](https://github.com/vkorotenko/VueRecaptcha/blob/master/images/createproject.PNG?raw=true)
+## РЎРѕР·РґР°РЅРёРµ .NET РїСЂРёР»РѕР¶РµРЅРёСЏ
+РЇ РёСЃРїРѕР»СЊР·СѓСЋ **Microsoft Visual Studio 2022** РІ СЃР»СѓС‡Р°Рµ РёСЃРїРѕР»СЊР·РѕРІР°РЅРёСЏ РґСЂСѓРіРёС… РІРµСЂСЃРёР№ СЌРєСЂР°РЅС‹ Рё РєРѕРґ Р±СѓРґСѓС‚ РЅРµРјРЅРѕРіРѕ РѕС‚Р»РёС‡Р°С‚СЃСЏ.
+РЎРѕР·РґР°Р№С‚Рµ РїСЂРѕРµРєС‚ **ASP .NET Core Web API**
+![РЎРѕР·РґР°Р№С‚Рµ РїСЂРѕРµРєС‚ ASP .NET Core Web API](https://github.com/vkorotenko/VueRecaptcha/blob/master/images/createproject.PNG?raw=true)
 
-Выберите подходящее имя
+Р’С‹Р±РµСЂРёС‚Рµ РїРѕРґС…РѕРґСЏС‰РµРµ РёРјСЏ
 
-![Выберите подходящее имя](https://github.com/vkorotenko/VueRecaptcha/blob/master/images/configurename.PNG?raw=true)
+![Р’С‹Р±РµСЂРёС‚Рµ РїРѕРґС…РѕРґСЏС‰РµРµ РёРјСЏ](https://github.com/vkorotenko/VueRecaptcha/blob/master/images/configurename.PNG?raw=true)
 
-И настройте опции как на этом экране, впрочем, это мой выбор для упрощения тестового проекта.
+Р РЅР°СЃС‚СЂРѕР№С‚Рµ РѕРїС†РёРё РєР°Рє РЅР° СЌС‚РѕРј СЌРєСЂР°РЅРµ, РІРїСЂРѕС‡РµРј, СЌС‚Рѕ РјРѕР№ РІС‹Р±РѕСЂ РґР»СЏ СѓРїСЂРѕС‰РµРЅРёСЏ С‚РµСЃС‚РѕРІРѕРіРѕ РїСЂРѕРµРєС‚Р°.
 
-![Настройки проекта](https://github.com/vkorotenko/VueRecaptcha/blob/master/images/projectoption.PNG?raw=true)
+![РќР°СЃС‚СЂРѕР№РєРё РїСЂРѕРµРєС‚Р°](https://github.com/vkorotenko/VueRecaptcha/blob/master/images/projectoption.PNG?raw=true)
 
 
-Далее удалите лишние файлы, созданные мастером.
-Добавьте следующие пакеты:
+Р”Р°Р»РµРµ СѓРґР°Р»РёС‚Рµ Р»РёС€РЅРёРµ С„Р°Р№Р»С‹, СЃРѕР·РґР°РЅРЅС‹Рµ РјР°СЃС‚РµСЂРѕРј.
+Р”РѕР±Р°РІСЊС‚Рµ СЃР»РµРґСѓСЋС‰РёРµ РїР°РєРµС‚С‹:
 * Microsoft.AspNetCore.SpaServices.Extensions
 * Newtonsoft.Json
 
-Файл **Program.cs** после правок
+Р¤Р°Р№Р» **Program.cs** РїРѕСЃР»Рµ РїСЂР°РІРѕРє
 ```
 using System.Text.Json;
 using System.Text.Json.Serialization;
@@ -87,7 +87,7 @@ namespace VueRecaptcha
 }
 ```
 
-Файл **ReCaptcha.cs**
+Р¤Р°Р№Р» **ReCaptcha.cs**
 ```
 using Newtonsoft.Json.Linq;
 
@@ -131,7 +131,7 @@ public class ReCaptcha
 }
 ```
  
- Файл **UploadModel.cs**
+ Р¤Р°Р№Р» **UploadModel.cs**
  ```
  namespace VueRecaptcha.ViewModels;
 
@@ -143,23 +143,23 @@ public class UploadModel
     public List<IFormFile> Files { get; set; } = new List<IFormFile>();
 }
 ```
-## Создание SPA приложения
-В папке .NET приложения выполните команду
+## РЎРѕР·РґР°РЅРёРµ SPA РїСЂРёР»РѕР¶РµРЅРёСЏ
+Р’ РїР°РїРєРµ .NET РїСЂРёР»РѕР¶РµРЅРёСЏ РІС‹РїРѕР»РЅРёС‚Рµ РєРѕРјР°РЅРґСѓ
 
 ```vue create clientapp```
 
-укажите что используете **vue 3**
+СѓРєР°Р¶РёС‚Рµ С‡С‚Рѕ РёСЃРїРѕР»СЊР·СѓРµС‚Рµ **vue 3**
 
-перейдите в папку clientapp
+РїРµСЂРµР№РґРёС‚Рµ РІ РїР°РїРєСѓ clientapp
 
-добавьте поддержку **typescript**
+РґРѕР±Р°РІСЊС‚Рµ РїРѕРґРґРµСЂР¶РєСѓ **typescript**
 
 ```vue add typescript```
 
-Установите пакеты
+РЈСЃС‚Р°РЅРѕРІРёС‚Рµ РїР°РєРµС‚С‹
 ```npm i -S axios```
 
-настройте проект
+РЅР°СЃС‚СЂРѕР№С‚Рµ РїСЂРѕРµРєС‚
 **vue.config.js**
 ```
 const { defineConfig } = require('@vue/cli-service')
@@ -177,7 +177,7 @@ module.exports = defineConfig({
 ```
 <template>
   <div class="hello">
-    <div v-if="uploaded">Файлы загружены</div>
+    <div v-if="uploaded">Р¤Р°Р№Р»С‹ Р·Р°РіСЂСѓР¶РµРЅС‹</div>
     <form class="uploadForm" v-else>
       <label for="email"
         >Email
@@ -205,23 +205,23 @@ export default class HelloWorld extends Vue {
   uploaded: boolean = false;
   async submit() {    
     var formData = new FormData();
-    // добавляем в форму поля
+    // РґРѕР±Р°РІР»СЏРµРј РІ С„РѕСЂРјСѓ РїРѕР»СЏ
     formData.append("email", this.email);
     formData.append("name", this.name);
-    // получаем значение капчи
+    // РїРѕР»СѓС‡Р°РµРј Р·РЅР°С‡РµРЅРёРµ РєР°РїС‡Рё
     const resp = (
       document.getElementsByName(
         "g-recaptcha-response"
       )[0] as HTMLTextAreaElement
     ).value;
     formData.append("captchaResponse", resp);
-    // поле загрузки файлов
+    // РїРѕР»Рµ Р·Р°РіСЂСѓР·РєРё С„Р°Р№Р»РѕРІ
     var imagefile = document.getElementById("upload_files") as HTMLInputElement;
     if (imagefile == null) return;
     if (imagefile.files == null) return;
     const files = imagefile.files;
     for (let i = 0; i < files.length; i++) {
-      // добавляем в форму выбранные файлы
+      // РґРѕР±Р°РІР»СЏРµРј РІ С„РѕСЂРјСѓ РІС‹Р±СЂР°РЅРЅС‹Рµ С„Р°Р№Р»С‹
       formData.append("files", files[i]);
     }
     var result = await axios.post("/api/upload", formData);
@@ -236,7 +236,7 @@ export default class HelloWorld extends Vue {
     upload?.click();    
   }
   async mounted() {
-    // я сделал так что бы все настройки хранились на сервере, если не нравится лишний запрос то захардкодьте это значение
+    // СЏ СЃРґРµР»Р°Р» С‚Р°Рє С‡С‚Рѕ Р±С‹ РІСЃРµ РЅР°СЃС‚СЂРѕР№РєРё С…СЂР°РЅРёР»РёСЃСЊ РЅР° СЃРµСЂРІРµСЂРµ, РµСЃР»Рё РЅРµ РЅСЂР°РІРёС‚СЃСЏ Р»РёС€РЅРёР№ Р·Р°РїСЂРѕСЃ С‚Рѕ Р·Р°С…Р°СЂРґРєРѕРґСЊС‚Рµ СЌС‚Рѕ Р·РЅР°С‡РµРЅРёРµ
     var captcha = await axios.get("/api/upload");
     this.siteKey = captcha.data.toString();
     this.createRecaptcha();
@@ -269,22 +269,22 @@ a {
 
 ```
 
-## Получение своих ключей
-Войдите в свой аккаунт reCAPTCHA  
+## РџРѕР»СѓС‡РµРЅРёРµ СЃРІРѕРёС… РєР»СЋС‡РµР№
+Р’РѕР№РґРёС‚Рµ РІ СЃРІРѕР№ Р°РєРєР°СѓРЅС‚ reCAPTCHA  
 [https://www.google.com/recaptcha/about/](https://www.google.com/recaptcha/about/) 
-Добавьте новый сайт, для целей локального тестирования не забудьте добавить
+Р”РѕР±Р°РІСЊС‚Рµ РЅРѕРІС‹Р№ СЃР°Р№С‚, РґР»СЏ С†РµР»РµР№ Р»РѕРєР°Р»СЊРЅРѕРіРѕ С‚РµСЃС‚РёСЂРѕРІР°РЅРёСЏ РЅРµ Р·Р°Р±СѓРґСЊС‚Рµ РґРѕР±Р°РІРёС‚СЊ
 localhost
-Выберите reCAPTCHA v2 
-Site Key и Secret Key
-скопируйте в файл **appsettings.json**
+Р’С‹Р±РµСЂРёС‚Рµ reCAPTCHA v2 
+Site Key Рё Secret Key
+СЃРєРѕРїРёСЂСѓР№С‚Рµ РІ С„Р°Р№Р» **appsettings.json**
 
-И можно запускать отладку приложения в Visual Studio.
+Р РјРѕР¶РЅРѕ Р·Р°РїСѓСЃРєР°С‚СЊ РѕС‚Р»Р°РґРєСѓ РїСЂРёР»РѕР¶РµРЅРёСЏ РІ Visual Studio.
 
-## Заключение
-В итоге мы научились загружать несколько файлов из SPA приложения на бэкенд с проверкой капчей.
-Успехов вам и меньше спэма! [Владимир Коротенко](https://vkorotenko.ru)
+## Р—Р°РєР»СЋС‡РµРЅРёРµ
+Р’ РёС‚РѕРіРµ РјС‹ РЅР°СѓС‡РёР»РёСЃСЊ Р·Р°РіСЂСѓР¶Р°С‚СЊ РЅРµСЃРєРѕР»СЊРєРѕ С„Р°Р№Р»РѕРІ РёР· SPA РїСЂРёР»РѕР¶РµРЅРёСЏ РЅР° Р±СЌРєРµРЅРґ СЃ РїСЂРѕРІРµСЂРєРѕР№ РєР°РїС‡РµР№.
+РЈСЃРїРµС…РѕРІ РІР°Рј Рё РјРµРЅСЊС€Рµ СЃРїСЌРјР°! [Р’Р»Р°РґРёРјРёСЂ РљРѕСЂРѕС‚РµРЅРєРѕ](https://vkorotenko.ru)
 
-## Исходный код
+## РСЃС…РѕРґРЅС‹Р№ РєРѕРґ
 [https://github.com/vkorotenko/VueRecaptcha](https://github.com/vkorotenko/VueRecaptcha)
 
 
